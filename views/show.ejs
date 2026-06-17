@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information</title>
+    <style>
+        table {
+            width: 60%;
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px 20px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Information</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <td><%= student.id %></td>
+        </tr>
+        <tr>
+            <th>NAME</th>
+            <td><%= student.name %></td>
+        </tr>
+        <tr>
+            <th>EMAIL</th>
+            <td><%= student.email %></td>
+        </tr>
+        <tr>
+            <th>DEPARTMENT</th>
+            <td><%= student.department %></td>
+        </tr>
+        <tr>
+            <th>SEMESTER</th>
+            <td><%= student.semester %></td>
+        </tr>
+        <tr>
+            <th>PHONE NO</th>
+            <td><%= student.phone %></td>
+        </tr>
+        <tr>
+            <th>CREATED AT</th>
+            <td><%= student.created_at %></td>
+        </tr>
+    </table>
+    <a href="/students">Back to All Students</a>
+</body>
+</html>

@@ -1,0 +1,159 @@
+const express = require("express")
+const app = express()
+const mysql = require("mysql2")
+const cors = require("cors")
+const path = require("path");
+const methodOverride = require("method-override")
+app.use(cors());
+
+app.use(express.urlencoded({ extended : true }));
+app.use(methodOverride('_method'))
+app.set('view engine', 'ejs');
+app.set("views", path.join(__dirname, "/views"));
+
+const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "sonu@123",
+    database: "studentdb"
+});
+
+connection.connect((err) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log("MySQL Connected");
+});
+
+
+app.get("/", (req, res) => {
+    res.send("rout is working")
+});
+
+// show all
+app.get("/students", (req, res) => {
+    const q = "SELECT * FROM students";
+      try {
+        connection.query(q, (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.send("Some error in DB");
+          }
+          res.render("showstudents.ejs", { students: result });
+        });
+      } catch(err) {
+        console.log(err);
+        res.send("Some error in DB");
+      }
+});
+
+app.get("/students/add", (req, res) => {
+  res.render("addstudent.ejs")
+});
+
+
+// get rout 
+app.get("/students/:id", (req, res) => {
+    let id = req.params.id;
+
+    let q = "SELECT * FROM students WHERE id = ?";
+
+      try {
+        connection.query(q, id, (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.send("Some error in DB");
+          }
+          res.render("show.ejs", { student: result[0] }); // id of th student
+        });
+      } catch(err) {
+        console.log(err);
+        res.send("Some error in DB");
+      }
+});
+
+// create rout
+app.post("/students", (req, res) => {
+  let {id, name, email, semester, department, phone} = req.body;
+  let q = `INSERT INTO students (id, name, email, semester, department, phone) VALUES (?, ?, ?, ?, ?, ?)`;
+
+      try {
+        connection.query(q, [id, name, email, semester, department, phone], (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.send("Some error in DB");
+          }
+          res.redirect("/students");
+        });
+      } catch(err) {
+        console.log(err);
+        res.send("Some error in DB");
+      }
+});
+
+// edit rout select that particular student
+app.get("/students/:id/edit", (req, res) => {
+  let { id } = req.params;
+  let q = `SELECT * FROM students WHERE id = ? `
+  try {
+        connection.query(q, [id],  (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.send("Some error in DB");
+          }
+          if (!result[0]) {
+            return res.send("Student not found");
+          }
+          res.render("edit.ejs", {student : result[0]})
+        });
+      } catch(err) {
+        console.log(err);
+        res.send("Some error in DB");
+      }
+});
+
+app.patch("/students/:id/edit", (req, res) => {
+  let { id } = req.params;
+  let { name, email, semester, department, phone } = req.body;
+
+  let q = "UPDATE students SET name=?, email=?, semester=?, department=?, phone=? WHERE id=?";
+
+  try {
+    connection.query(q, [name, email, semester, department, phone, id], (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.send("Some error in DB");
+      }
+      res.redirect("/students");
+    });
+  } catch(err) {
+    console.log(err);
+    res.send("Some error in DB");
+  }
+});
+
+
+app.delete("/students/:id", (req, res) => {
+  let { id } = req.params;
+
+  let q = "DELETE FROM students WHERE id = ?";
+
+  try {
+    connection.query(q, [id], (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.send("Some error in DB");
+      }
+      res.redirect("/students");
+    });
+  } catch(err) {
+    console.log(err);
+    res.send("Some error in DB");
+  }
+});
+
+app.listen(8080, () => {
+    console.log("app is listening your port");
+});

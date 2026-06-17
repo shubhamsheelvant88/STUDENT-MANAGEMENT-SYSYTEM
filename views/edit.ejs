@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+<body>
+    <h4>Edit student OF ID : <%= student.id %></h4>
+    <form action="/students/<%= student.id %>/edit?_method=PATCH" method="POST">
+        <label for="name">NAME : </label>
+        <input type="text" id="name" name="name" value="<%= student.name %>">
+        <br>
+        <br>
+        <label for="email">EMAIL : </label>
+        <input type="email" id="email" name="email" value="<%= student.email %>">
+        <br>
+        <br>
+        <label for="dept">DEPARTMENT : </label>
+        <input type="text" id="dept" name="department" value="<%= student.department %>">
+        <br>
+        <br>
+        <label for="sem">SEMESTER : </label>
+        <input type="number" id="sem" name="semester" value="<%= student.semester %>">
+        <br>
+        <br>
+        <label for="ph">PHONE NO : </label>
+        <input type="text" id="ph" name="phone" value="<%= student.phone %>">
+        <br>
+        <br>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

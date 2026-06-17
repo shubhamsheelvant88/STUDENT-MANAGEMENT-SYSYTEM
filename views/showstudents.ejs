@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All students data</title>
+</head>
+<style>
+    table {
+        width: 100%;
+    }
+    table ,td, th {
+        border : 1px solid black;
+    }
+</style>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>EMAIL</th>
+            <th>DEPARTMENT</th>
+            <th>SEMESTER</th>
+            <th>PHONE NO</th>
+            <th>CREATED AT</th>
+        </tr>
+
+        <% for(student of students) { %>
+            <tr>
+                <td><%= student.id %></td>
+                <td><%= student.name %></td>
+                <td><%= student.email %></td>
+                <td><%= student.department %></td>
+                <td><%= student.semester %></td>
+                <td><%= student.phone %></td>
+                <td><%= student.created_at %></td>
+                <td>
+                    <br>
+                    <a href="/students/<%= student.id %>">
+                        <button type="button">Show</button>
+                    </a>
+                    <br>
+                    <br>
+                     <form action="/students/<%= student.id %>/edit">
+                        <button>Edit</button>
+                    </form>
+                    <br> 
+                    <form action="/students/<%= student.id %>?_method=DELETE" method="POST"> 
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <%}%>
+    </table>
+    <br>
+    <form action="/students/add">
+        <button>Create</button>
+    </form>
+</body>
+</html>
