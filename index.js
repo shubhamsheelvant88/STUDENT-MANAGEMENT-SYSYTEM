@@ -6,6 +6,7 @@ const path = require("path");
 const methodOverride = require("method-override")
 app.use(cors());
 
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended : true }));
 app.use(methodOverride('_method'))
 app.set('view engine', 'ejs');
@@ -32,22 +33,28 @@ app.get("/", (req, res) => {
     res.send("rout is working")
 });
 
-// show all
+
+// show all or search
 app.get("/students", (req, res) => {
-    const q = "SELECT * FROM students";
-      try {
-        connection.query(q, (err, result) => {
-          if (err) {
-            console.log(err);
-            return res.send("Some error in DB");
-          }
-          res.render("showstudents.ejs", { students: result });
-        });
-      } catch(err) {
+  let search = req.query.search;
+  let q = search 
+    ? "SELECT * FROM students WHERE name LIKE ?"
+    : "SELECT * FROM students"; // ternary opearator
+  
+  try {
+    connection.query(q, search ? [`%${search}%`] : [], (err, result) => { // ternary operator
+      if (err) {
         console.log(err);
-        res.send("Some error in DB");
+        return res.send("Some error in DB");
       }
+      res.render("showstudents.ejs", { students : result, search }); // in result we have that particular student what we have searched
+    });
+  } catch(err) {
+    console.log(err);
+    res.send("Some error in DB");
+  }
 });
+
 
 app.get("/students/add", (req, res) => {
   res.render("addstudent.ejs")
@@ -114,6 +121,7 @@ app.get("/students/:id/edit", (req, res) => {
       }
 });
 
+// upadate 
 app.patch("/students/:id/edit", (req, res) => {
   let { id } = req.params;
   let { name, email, semester, department, phone } = req.body;
