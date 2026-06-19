@@ -1,36 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Information</title>
-    <style>
-        table {
-            width: 60%;
-            margin: 30px auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 10px 20px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        h1 {
-            text-align: center;
-        }
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            text-decoration: none;
-            color: blue;
-        }
-    </style>
-</head>
-<body>
+<% layout("/layouts/boilerplate") %>
     <h1>Student Information</h1>
     <table>
         <tr>
@@ -62,6 +30,4 @@
             <td><%= student.created_at %></td>
         </tr>
     </table>
-    <a href="/students">Back to All Students</a>
-</body>
-</html>
+    <a href="/students"><button class="btn btn-light">Back to All Students</button></a>

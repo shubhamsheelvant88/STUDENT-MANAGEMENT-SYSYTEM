@@ -1,37 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add new student</title>
-</head>
-<body>
-    <form action="/students" method="POST">
-        <label for="id">ID : </label>
-        <input type="number" id="id" name="id">
+<% layout("/layouts/boilerplate") %>
+<div class="add-student">
+    <h4>Add a new student</h4>
+<form action="/students" method="POST">
+    <div class="row">
+        <div class="col-6 offset-3">
+        <label for="id" class="form-label">ID : </label>
+        <input type="number" id="id" name="id" class="form-control">
         <br>
         <br>
-        <label for="name">NAME : </label>
-        <input type="text" id="name" name="name">
+        <label for="name" class="form-label">NAME : </label>
+        <input type="text" id="name" name="name" class="form-control">
         <br>
         <br>
-        <label for="email">EMAIL : </label>
-        <input type="email" id="email" name="email">
+        <label for="email" class="form-label">EMAIL : </label>
+        <input type="email" id="email" name="email" class="form-control">
         <br>
         <br>
-        <label for="dept">DEPARTMENT : </label>
-        <input type="text" id="dept" name="department">
+        <label for="dept" class="form-label">DEPARTMENT : </label>
+        <input type="text" id="dept" name="department" class="form-control">
         <br>
         <br>
-        <label for="sem">SEMESTER : </label>
-        <input type="number" id="sem" name="semester">
+        <label for="sem" class="form-label">SEMESTER : </label>
+        <input type="number" id="sem" name="semester" class="form-control">
         <br>
         <br>
-        <label for="ph">PHONE NO : </label>
-        <input type="text" id="ph" name="phone">
+        <label for="ph" class="form-label">PHONE NO : </label>
+        <input type="text" id="ph" name="phone" class="form-control">
         <br>
         <br>
-        <button type="submit">Add</button>
+        <button type="submit" class="btn btn-dark">Add</button>
+        </div>
+        </div>
     </form>
-</body>
-</html>
+</div>

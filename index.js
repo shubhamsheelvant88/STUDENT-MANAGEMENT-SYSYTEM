@@ -4,11 +4,13 @@ const mysql = require("mysql2")
 const cors = require("cors")
 const path = require("path");
 const methodOverride = require("method-override")
+const engine = require("ejs-mate")
 app.use(cors());
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended : true }));
 app.use(methodOverride('_method'))
+app.engine('ejs', engine)
 app.set('view engine', 'ejs');
 app.set("views", path.join(__dirname, "/views"));
 

@@ -1,0 +1,35 @@
+table {
+    width: 60%;
+    margin: 30px auto;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid black;
+    padding: 10px 20px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+h1 {
+    text-align: center;
+}
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+    color: blue;
+}
+
+.edit {
+    margin : 10px;
+}
+
+.add-student {
+    margin : 10px;
+}
+
+h4 {
+    text-align : center;
+}
