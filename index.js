@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 app.get("/students", (req, res) => {
   let search = req.query.search;
   let q = search 
-    ? "SELECT * FROM students WHERE name LIKE ?"
+    ? "SELECT * FROM students WHERE name LIKE ?" // like matches the pattern in the name
     : "SELECT * FROM students"; // ternary opearator
   
   try {

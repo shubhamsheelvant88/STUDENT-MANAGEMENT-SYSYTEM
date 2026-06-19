@@ -13,18 +13,25 @@
         border : 1px solid black;
     }
     .search-info {
+        display : flex;
         margin-bottom: 15px;
+    }
+    #btn-search {
+        margin-right : 4px;
     }
 </style>
 <body>
     <div class="search-info">
         <form action="/students" method="GET">
             <input type="text" id="searchInput" name="search" value="<%= search %>"><!-- search="shubham"  -->
-            <button type="submit">Search</button>
+            <button type="submit" id="btn-search">Search</button>
             <% if (search) { %>
             <a href="/students"><button type="button">Clear Search</button></a>
             <% } %>
         </form>
+    <form action="/students/add">
+        <button>Create</button>
+        </form>    
     </div>
     
     <table>
@@ -69,8 +76,5 @@
         <p>No students found.</p>
     <% } %>
     <br>
-    <form action="/students/add">
-        <button>Create</button>
-    </form>
 </body>
 </html>
