@@ -33,3 +33,21 @@ a {
 h4 {
     text-align : center;
 }
+
+
+.f-info {
+    display : flex;
+    height : 8rem;
+    background-color: #f2f2f2;
+    flex-wrap : wrap;
+    justify-content: space-evenly;
+
+}
+
+.f-info-links {
+    width : 100%;
+    /* text-align: center; */
+    display : flex;
+    align-items: center;
+    justify-content: center;
+}

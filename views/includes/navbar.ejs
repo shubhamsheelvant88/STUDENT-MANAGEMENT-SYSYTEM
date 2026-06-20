@@ -1,0 +1,19 @@
+
+<nav class="navbar navbar-expand bg-light" data-bs-theme="bg-light">
+    <div class="container-fluid">
+        <form action="/students" method="GET" class="d-flex gap-2 mx-auto" role="search">
+            <input type="text" id="searchInput" name="search" class="form-control" 
+            value="<%= typeof search !== 'undefined' && search ? search : '' %>" placeholder="Search student...">
+ <!-- typeof search !== 'undefined' && search ? search : '' %>  => checkess whether the search has value--> 
+            <button type="submit" id="btn-search" class="btn btn-secondary">Search</button>
+
+             <% if (typeof search !== 'undefined' && search) { %>
+            <a href="/students" class="btn btn-light">Clear Search</a>
+            <% } %>
+        </form>
+
+        <form action="/students/add" class="ms-3">
+            <button class="btn btn-warning">Create</button>
+        </form>
+    </div>
+</nav>

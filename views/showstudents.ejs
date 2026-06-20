@@ -5,6 +5,9 @@
     table ,td, th {
         border : 1px solid black;
     }
+    #searchInput {
+        width : 50%;
+    }
     .search-info {
         display : flex;
         margin: 15px;
@@ -15,18 +18,7 @@
 </style>
 
 <% layout("/layouts/boilerplate") %>
-    <div class="search-info">
-        <form action="/students" method="GET">
-            <input type="text" id="searchInput" name="search" value="<%= search %>"><!-- search="shubham"  -->
-            <button type="submit" id="btn-search" class="btn btn-secondary">Search</button>
-            <% if (search) { %>
-            <a href="/students"><button type="button" class="btn btn-light">Clear Search</button></a>
-            <% } %>
-        </form>
-    <form action="/students/add">
-        <button class="btn btn-warning">Create</button>
-        </form>    
-    </div>
+    
     
     <table>
         <tr>
