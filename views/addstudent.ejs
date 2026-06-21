@@ -1,9 +1,10 @@
 <% layout("/layouts/boilerplate") %>
 <div class="add-student">
     <h4>Add a new student</h4>
-<form action="/students" method="POST">
-    <div class="row">
-        <div class="col-6 offset-3">
+    <form action="/students" method="POST">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
         <label for="id" class="form-label">ID : </label>
         <input type="number" id="id" name="id" class="form-control">
         <br>
@@ -31,5 +32,6 @@
         <button type="submit" class="btn btn-dark">Add</button>
         </div>
         </div>
+    </div>
     </form>
 </div>

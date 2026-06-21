@@ -1,25 +1,5 @@
-<style>
-    table {
-        width: 100%;
-    }
-    table ,td, th {
-        border : 1px solid black;
-    }
-    #searchInput {
-        width : 50%;
-    }
-    .search-info {
-        display : flex;
-        margin: 15px;
-    }
-    #btn-search {
-        margin-right : 4px;
-    }
-</style>
-
 <% layout("/layouts/boilerplate") %>
-    
-    
+<div class="table-show">
     <table>
         <tr>
             <th>ID</th>
@@ -29,6 +9,7 @@
             <th>SEMESTER</th>
             <th>PHONE NO</th>
             <th>CREATED AT</th>
+            <th>Actions</th>
         </tr>
 
         <% for(student of students) { %>
@@ -41,18 +22,15 @@
                 <td><%= student.phone %></td>
                 <td><%= student.created_at %></td>
                 <td>
-                    <br>
                     <a href="/students/<%= student.id %>">
-                        <button type="button" class="btn btn-info">Show</button>
+                        <button type="button" class="btn btn-info btn-sm">Show</button>
+                    </a>
+                    <a href="/students/<%= student.id %>/edit">
+                        <button class="btn btn-danger btn-sm">Edit</button>
                     </a>
                     <br>
-                    <br>
-                     <form action="/students/<%= student.id %>/edit">
-                        <button class="btn btn-danger">Edit</button>
-                    </form>
-                    <br> 
-                    <form action="/students/<%= student.id %>?_method=DELETE" method="POST"> 
-                        <button type="submit" class="btn btn-primary">Delete</button>
+                    <form action="/students/<%= student.id %>?_method=DELETE" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-primary btn-sm">Delete</button>
                     </form>
                 </td>
             </tr>
@@ -61,4 +39,4 @@
     <% if (students.length === 0) { %>
         <p>No students found.</p>
     <% } %>
-    <br>
+</div>

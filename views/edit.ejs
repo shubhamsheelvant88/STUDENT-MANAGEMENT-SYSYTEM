@@ -3,8 +3,9 @@
     <h4>Edit student OF ID : <%= student.id %></h4>
     <br>
     <form action="/students/<%= student.id %>/edit?_method=PATCH" method="POST">
-    <div class="row">
-        <div class="col-6 offset-3">
+    <div class="container">
+        <div class="row">
+            <div >
         <label for="name" class="form-label">NAME : </label>
         <input type="text" id="name" name="name" value="<%= student.name %>" class="form-control">
         <br>
@@ -26,7 +27,8 @@
         <br>
         <br>
         <button type="submit" class="btn btn-success">Update</button>
-    </form>
+        </div>
     </div>
-</div>
+    </div>
+    </form>
 </div>

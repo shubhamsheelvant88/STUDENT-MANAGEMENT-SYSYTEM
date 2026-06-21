@@ -60,3 +60,38 @@ h4 {
 #main-heading {
     font-family: "Montserrat", sans-serif;
 }
+
+.sidebar {
+    background-color: #353535;
+}
+
+.main {
+    display: flex;
+    min-height: calc(100vh - 56px);
+}
+
+/* .content {
+    flex: 1;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+} */
+
+.table-show {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.table-show th,
+.table-show td {
+    border: 1px solid #dee2e6;
+    padding: 10px 20px;
+    text-align: left;
+}
+
+.table-show th {
+    background-color: #e9ecef;
+}
