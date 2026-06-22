@@ -35,7 +35,6 @@ app.get("/", (req, res) => {
     res.send("rout is working")
 });
 
-
 // show all or search
 app.get("/students", (req, res) => {
   let search = req.query.search;
@@ -63,7 +62,11 @@ app.get("/students/add", (req, res) => {
 });
 
 
-// get rout 
+app.get("/students/courses" , (req, res) => {
+  res.render("courses.ejs");
+});
+
+// get rout
 app.get("/students/:id", (req, res) => {
     let id = req.params.id;
 
@@ -75,7 +78,10 @@ app.get("/students/:id", (req, res) => {
             console.log(err);
             return res.send("Some error in DB");
           }
-          res.render("show.ejs", { student: result[0] }); // id of th student
+          if (!result[0]) {
+            return res.send("Student not found");
+          }
+          res.render("show.ejs", { student: result[0] });
         });
       } catch(err) {
         console.log(err);
