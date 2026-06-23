@@ -5,14 +5,33 @@ const cors = require("cors")
 const path = require("path");
 const methodOverride = require("method-override")
 const engine = require("ejs-mate")
+const session = require("express-session")
+const flash = require("connect-flash")
 app.use(cors());
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended : true }));
 app.use(methodOverride('_method'))
+app.use(flash())
 app.engine('ejs', engine)
 app.set('view engine', 'ejs');
 app.set("views", path.join(__dirname, "/views"));
+
+
+const sessionOptions = {
+    secret : "mysupersecretcode",
+    resave : false,
+    saveUninitialized : true,
+    cookie : {
+        expires : Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge  : 7 * 24 * 60 * 60 * 1000,
+        httpOnly : true,
+    }
+}
+
+app.use(session(sessionOptions))
+app.use(flash())
+
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -31,8 +50,15 @@ connection.connect((err) => {
 });
 
 
+
+
 app.get("/", (req, res) => {
     res.send("rout is working")
+});
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    next();
 });
 
 // show all or search
@@ -100,6 +126,7 @@ app.post("/students", (req, res) => {
             console.log(err);
             return res.send("Some error in DB");
           }
+          req.flash("success", "New Student Added!");
           res.redirect("/students");
         });
       } catch(err) {
