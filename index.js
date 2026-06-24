@@ -51,13 +51,13 @@ connection.connect((err) => {
 
 
 
-
 app.get("/", (req, res) => {
     res.send("rout is working")
 });
 
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
     next();
 });
 
@@ -169,6 +169,7 @@ app.patch("/students/:id/edit", (req, res) => {
         console.log(err);
         return res.send("Some error in DB");
       }
+      req.flash("success", "This Student Edited!");
       res.redirect("/students");
     });
   } catch(err) {
@@ -189,6 +190,7 @@ app.delete("/students/:id", (req, res) => {
         console.log(err);
         return res.send("Some error in DB");
       }
+      req.flash("error", "This Student Deleted!");
       res.redirect("/students");
     });
   } catch(err) {
