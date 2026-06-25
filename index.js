@@ -92,6 +92,10 @@ app.get("/students/courses" , (req, res) => {
   res.render("courses.ejs");
 });
 
+app.get("/students/settings", (req, res) => {
+  res.render("settings.ejs");
+})
+
 // get rout
 app.get("/students/:id", (req, res) => {
     let id = req.params.id;
