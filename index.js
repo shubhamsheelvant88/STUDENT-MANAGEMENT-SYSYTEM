@@ -7,8 +7,12 @@ const methodOverride = require("method-override")
 const engine = require("ejs-mate")
 const session = require("express-session")
 const flash = require("connect-flash")
-app.use(cors());
+const mongoose = require("mongoose");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("./models/user.js");
 
+app.use(cors());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended : true }));
 app.use(methodOverride('_method'))
@@ -29,10 +33,6 @@ const sessionOptions = {
     }
 }
 
-app.use(session(sessionOptions))
-app.use(flash())
-
-
 const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -49,7 +49,18 @@ connection.connect((err) => {
     console.log("MySQL Connected");
 });
 
+mongoose.connect("mongodb://localhost:27017/stu_management_sys");
 
+app.use(session(sessionOptions))
+app.use(flash())
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.get("/", (req, res) => {
     res.send("rout is working")
@@ -173,7 +184,7 @@ app.patch("/students/:id/edit", (req, res) => {
         console.log(err);
         return res.send("Some error in DB");
       }
-      req.flash("success", "This Student Edited!");
+      req.flash("success", "This Student is Edited!");
       res.redirect("/students");
     });
   } catch(err) {
@@ -203,6 +214,19 @@ app.delete("/students/:id", (req, res) => {
   }
 });
 
+app.get("/signup", async (req, res) => {
+  res.render("users/signup.ejs");
+});
+
+app.post("/signup", async (req, res) => {
+  let {username, email, password} = req.body;
+
+  const newUser = new User({ username, email });
+  const registeredUser = await User.register(newUser, password);
+  console.log(registeredUser);
+  req.flash("success", "Welcome to Stuiinfo")
+  res.redirect("/students");
+});
 app.listen(8080, () => {
     console.log("app is listening your port");
 });
