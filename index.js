@@ -227,6 +227,17 @@ app.post("/signup", async (req, res) => {
   req.flash("success", "Welcome to Stuiinfo")
   res.redirect("/students");
 });
+
+app.get("/login", (req, res) => {
+  res.render("users/login.ejs");
+});
+
+app.post("/login", passport.authenticate("local", {failureRedirect : "/login", failureFlash : true}), 
+async (req, res) => {
+  req.flash("success", "Welcome to the stuiinfo you are logged in");
+  res.redirect("/students");
+});
+
 app.listen(8080, () => {
     console.log("app is listening your port");
 });
