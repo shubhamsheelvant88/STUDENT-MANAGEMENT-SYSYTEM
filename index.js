@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user.js");
+const { isLoggedIn } = require("./middleware.js");
 
 app.use(cors());
 app.use(express.static('public'));
@@ -94,21 +95,21 @@ app.get("/students", (req, res) => {
 });
 
 
-app.get("/students/add", (req, res) => {
+app.get("/students/add",isLoggedIn, (req, res) => {
   res.render("addstudent.ejs")
 });
 
 
-app.get("/students/courses" , (req, res) => {
+app.get("/students/courses" ,isLoggedIn,  (req, res) => {
   res.render("courses.ejs");
 });
 
-app.get("/students/settings", (req, res) => {
+app.get("/students/settings",isLoggedIn,  (req, res) => {
   res.render("settings.ejs");
 })
 
 // get rout
-app.get("/students/:id", (req, res) => {
+app.get("/students/:id",isLoggedIn,  (req, res) => {
     let id = req.params.id;
 
     let q = "SELECT * FROM students WHERE id = ?";
@@ -131,7 +132,7 @@ app.get("/students/:id", (req, res) => {
 });
 
 // create rout
-app.post("/students", (req, res) => {
+app.post("/students",isLoggedIn, (req, res) => {
   let {id, name, email, semester, department, phone} = req.body;
   let q = `INSERT INTO students (id, name, email, semester, department, phone) VALUES (?, ?, ?, ?, ?, ?)`;
 
@@ -151,7 +152,7 @@ app.post("/students", (req, res) => {
 });
 
 // edit rout select that particular student
-app.get("/students/:id/edit", (req, res) => {
+app.get("/students/:id/edit",isLoggedIn, (req, res) => {
   let { id } = req.params;
   let q = `SELECT * FROM students WHERE id = ? `
   try {
@@ -172,7 +173,7 @@ app.get("/students/:id/edit", (req, res) => {
 });
 
 // upadate 
-app.patch("/students/:id/edit", (req, res) => {
+app.patch("/students/:id/edit",isLoggedIn, (req, res) => {
   let { id } = req.params;
   let { name, email, semester, department, phone } = req.body;
 
@@ -194,7 +195,7 @@ app.patch("/students/:id/edit", (req, res) => {
 });
 
 
-app.delete("/students/:id", (req, res) => {
+app.delete("/students/:id",isLoggedIn, (req, res) => {
   let { id } = req.params;
 
   let q = "DELETE FROM students WHERE id = ?";
